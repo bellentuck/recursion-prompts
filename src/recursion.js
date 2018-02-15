@@ -6,21 +6,77 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
+var result = 1;
 var factorial = function(n) {
-};
+  if (n < 0) return null;
+  if (n < 2) {
+    let returnedResult = result;
+    result = 1;
+    return returnedResult;
+  }
+  result *= n;
+  return factorial(n - 1);
+}
+
+
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
+var result = 0;
+var idx = 0;
 var sum = function(array) {
+  if (idx === array.length) {
+    let returnableResult = result;
+    result = 0;
+    idx = 0;
+    return returnableResult;
+  }
+  result += array[idx];
+  idx++;
+  return sum(array);
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+var idx1 = 0;
+//var idx2 = 0;
 var arraySum = function(array) {
-};
+  while (idx1 < array.length) {
+    if (Array.isArray(array[idx1])) {
+      return arraySum(array[idx1]);
+    }
+    result += array[idx1];
+    idx1++;
+  }
+  let returnableResult = result;
+  result = 0;
+  idx1 = 0;
+  return returnableResult;
+}
 
+
+
+var factor1, factor2;
+var resetFactors = function() {
+  factor1 = 0;
+  factor2 = 0;
+}
 // 4. Check if a number is even.
 var isEven = function(n) {
+  factor1 = factor1 || Math.sqrt(n);
+  factor2 = factor2 || Math.sqrt(n);
+  if (factor1 < 2) {
+    resetFactors();
+    return false;
+  }
+  if (factor1 * factor2 === n) {
+    resetFactors();
+    return true;
+  }
+  factor1--;
+  factor2++;
+  return isEven(n);
+
 };
 
 // 5. Sum all integers below a given integer.
